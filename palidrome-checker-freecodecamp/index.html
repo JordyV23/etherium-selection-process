@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Palindrome Checker - 8-bit Arcade</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Importar fuente pixelada -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.7;
+        }
+      }
+
+      @keyframes scanline {
+        0% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(100vh);
+        }
+      }
+
+      .pixel-bg {
+        background-image: repeating-linear-gradient(
+          transparent,
+          transparent 2px,
+          rgba(0, 0, 0, 0.05) 2px,
+          rgba(0, 0, 0, 0.05) 4px
+        );
+      }
+
+      .scanline::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: rgba(0, 255, 0, 0.15);
+        animation: scanline 10s linear infinite;
+        pointer-events: none;
+      }
+
+      .pixel-border {
+        box-shadow: 0 0 0 2px #000, inset 0 0 0 2px #000;
+      }
+
+      /* Estilo para botones arcade */
+      .arcade-btn {
+        position: relative;
+        overflow: hidden;
+        transition: all 0.1s ease;
+      }
+
+      .arcade-btn:active {
+        transform: translateY(4px);
+      }
+
+      .arcade-btn::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 30%;
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      /* Estilo 8-bit para el texto */
+      .pixel-text {
+        font-family: "Press Start 2P", cursive;
+        text-shadow: 2px 2px 0 #000;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-black text-white p-4 min-h-screen flex items-center justify-center pixel-bg scanline"
+  >
+    <div
+      class="max-w-md w-full bg-blue-900 border-4 border-blue-500 rounded-lg p-6 pixel-border relative overflow-hidden animate-pulse"
+    >
+      <!-- Efecto de CRT -->
+      <div
+        class="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-blue-900 opacity-10"
+      ></div>
+
+      <div class="text-center">
+        <h1 class="text-xl md:text-2xl mb-6 text-yellow-300 pixel-text">
+          PALINDROME CHECKER
+        </h1>
+
+        <div
+          class="mb-6 bg-black border-2 border-gray-400 p-3 rounded pixel-border"
+        >
+          <input
+            id="text-input"
+            type="text"
+            placeholder="ENTER TEXT..."
+            class="w-full bg-black text-green-400 p-2 outline-none border-none pixel-text text-sm placeholder-green-800"
+          />
+        </div>
+
+        <div class="mb-6 flex gap-4 justify-center">
+          <button
+            id="check-btn"
+            class="arcade-btn bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-md pixel-border uppercase pixel-text text-sm transition-colors duration-200 min-w-[120px] flex items-center justify-center"
+          >
+            CHECK
+          </button>
+          <a
+            href="https://github.com/JordyV23/etherium-selection-process"
+            target="_blank"
+            id="github-btn"
+            class="arcade-btn bg-black hover:bg-gray-800 text-white px-6 py-3 rounded-md pixel-border uppercase pixel-text text-sm transition-colors duration-200 min-w-[120px] flex items-center justify-center"
+          >
+            <span>GITHUB</span>
+          </a>
+        </div>
+
+        <p
+          id="result"
+          class="pixel-text text-green-400,red-400 text-sm break-words hidden"
+        ></p>
+      </div>
+
+      <!-- Decoración de píxeles en las esquinas -->
+      <div class="absolute top-0 left-0 w-4 h-4 bg-yellow-300"></div>
+      <div class="absolute top-0 right-0 w-4 h-4 bg-yellow-300"></div>
+      <div class="absolute bottom-0 left-0 w-4 h-4 bg-yellow-300"></div>
+      <div class="absolute bottom-0 right-0 w-4 h-4 bg-yellow-300"></div>
+    </div>
+
+    <script>
+      function isPalindrome(str) {
+        const cleaned = str.replace(/[^a-z0-9]/gi, "").toLowerCase();
+        const reversed = cleaned.split("").reverse().join("");
+        return cleaned === reversed;
+      }
+
+      document
+        .getElementById("check-btn")
+        .addEventListener("click", checkPalindrome);
+      document
+        .getElementById("text-input")
+        .addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            checkPalindrome();
+          }
+        });
+
+      function checkPalindrome() {
+        const input = document.getElementById("text-input").value;
+        const result = document.getElementById("result");
+
+        if (!input.trim()) {
+          alert("Please input a value.");
+          return;
+        }
+
+        // Mostrar resultado directamente sin contenedor ni temporizador
+        const verdict = isPalindrome(input)
+          ? `${input} is a palindrome`
+          : `${input} is not a palindrome`;
+
+        result.textContent = verdict;
+        result.classList.remove("hidden");
+
+        // Añadir clase específica según el resultado
+        result.className = "pixel-text text-sm break-words mt-6";
+        if (isPalindrome(input)) {
+          result.classList.add("text-green-400");
+        } else {
+          result.classList.add("text-red-400");
+        }
+      }
+    </script>
+  </body>
+</html>
