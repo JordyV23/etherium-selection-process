@@ -7,6 +7,10 @@ Este repositorio contiene mi solución para el proceso de selección del **Ether
 1. **Retos de FreeCodeCamp**: Soluciones a una serie de desafíos de programación
 2. **Proyecto Final**: Implementación de un verificador de palíndromos interactivo
 
+## 🚀 Enlace a solución
+
+<https://palidrome-checker-freecodecamp.netlify.app/>
+
 ## 🗂️ Estructura del Repositorio
 
 ```
@@ -25,15 +29,19 @@ ethereum-selection-process/
 ## 🔍 Detalles de los Componentes
 
 ### 📊 Gradebook Challenge
+
 Solución al desafío que implementa un sistema para gestionar calificaciones con funcionalidades como:
+
 - Cálculo de promedios
 - Ordenamiento de calificaciones
 - Análisis estadístico básico
 
 ### 🔄 Verificador de Palíndromos
+
 Aplicación interactiva que permite determinar si una palabra o frase es un palíndromo (se lee igual de izquierda a derecha que de derecha a izquierda).
 
 **Características:**
+
 - Interfaz de usuario intuitiva
 - Validación en tiempo real
 - Manejo de casos especiales (espacios, signos de puntuación)
@@ -41,11 +49,13 @@ Aplicación interactiva que permite determinar si una palabra o frase es un pal�
 ## 🚀 Cómo Ejecutar
 
 1. Clona este repositorio:
+
    ```bash
    git clone https://github.com/JordyV23/etherium-selection-process.git
    ```
 
 2. Navega al directorio del proyecto deseado:
+
    ```bash
    cd etherium-selection-process/palindrome-checker-freecodecamp
    ```
